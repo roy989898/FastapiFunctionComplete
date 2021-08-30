@@ -9,6 +9,7 @@ sqlalchemy = "*"
 jinja2 = "*"
 aiofiles = "*"
 pydantic-i18n = "*"
+email-validator = "*"
 
 [dev-packages]
 
