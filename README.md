@@ -12,7 +12,6 @@ email
 
 ### templete
 `from global_var import templates
-
 @app.get("/")
 async def root(request: Request):
     result = {}
