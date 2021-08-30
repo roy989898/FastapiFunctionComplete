@@ -3,12 +3,16 @@ from typing import List, Dict, Any
 from fastapi import APIRouter, Depends, Form
 from pydantic import ValidationError
 from requests import Response
+from sqlalchemy.orm import Session
 
+import models
 import schemas
 from fastapi_csrf_protect import CsrfProtect
 from starlette.requests import Request
 
 from global_var import templates
+from utils.auth import auth
+from utils.db.database import get_db
 from utils.form.form_util import get_errors_msgs
 from utils.i18n.language import tr
 
@@ -40,12 +44,14 @@ def signup(request: Request, csrf_protect: CsrfProtect = Depends()):
              )
 async def signup(response: Response, request: Request, email: str = Form(None), password: str = Form(None),
                  password2: str = Form(None),
-                 csrf_token: str = Form(None), csrf_protect: CsrfProtect = Depends()):
+                 csrf_token: str = Form(None), csrf_protect: CsrfProtect = Depends(), db: Session = Depends(get_db)):
     csrf_protect.validate_csrf(csrf_token)
     #  validate the form
     errors: List[Dict[str, Any]] = []
     #  check is the email unique
-    # TODO get user by email
+
+    users: List[models.User] = db.query(models.User).filter(models.User.email == email)
+    # TODO check
     emails = await task_system_model.User.filter(email=email)
     is_email_unique = True
     if len(emails) > 0:
@@ -54,7 +60,7 @@ async def signup(response: Response, request: Request, email: str = Form(None), 
     try:
         # TODO miss scheme
         schemas.SignupForm(isEmailUnique=is_email_unique, email=email, password=password,
-                                       password2=password2)
+                           password2=password2)
     except ValidationError as e:
         #  tc ,use what to determine the lang???
         errors = tr.translate(e.errors(), locale="tc")
