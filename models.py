@@ -1,6 +1,6 @@
 from typing import List
 
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey, BOOLEAN
 from sqlalchemy.orm import relationship
 
 from utils.db.database import Base
@@ -15,10 +15,20 @@ from utils.db.database import Base
 #     # user: 'User' = relationship('User', back_populates="blogs")
 
 
+# class User(Base):
+#     __tablename__ = 'users'
+#     id = Column(Integer, primary_key=True, index=True)
+#     email = Column(String, unique=True)
+#     password = Column(String)
+#     name = Column(String, unique=True)
+#     # blogs: List[Blog] = relationship('Blog')
+
+
 class User(Base):
     __tablename__ = 'users'
     id = Column(Integer, primary_key=True, index=True)
-    email = Column(String, unique=True)
-    password = Column(String)
-    name = Column(String, unique=True)
-    # blogs: List[Blog] = relationship('Blog')
+    username = Column(String)
+    full_name = Column(String)
+    email = Column(String)
+    hashed_password = Column(String)
+    disabled = Column(BOOLEAN, default=False)
