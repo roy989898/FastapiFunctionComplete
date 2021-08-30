@@ -2,7 +2,7 @@
 
 ~~templete~~  
 ~~auth~~  
-mulit router file  
+~~mulit router file~~  
 ~~i18n in templete~~
 csrf  
 validation i18n  
