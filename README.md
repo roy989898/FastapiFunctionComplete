@@ -6,6 +6,7 @@
 ~~i18n in templete~~
 csrf  
 validation i18n  
+Erro handle  
 logging  
 email
 
