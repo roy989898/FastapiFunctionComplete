@@ -1,4 +1,5 @@
 {
+  "Hello": "你好",
   "field required": "必填字段",
   "extra fields not permitted": "不允許額外的字段",
   "none is not an allowed value": "none 不是允許的值",

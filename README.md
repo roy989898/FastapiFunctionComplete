@@ -2,7 +2,7 @@
 
 ~~templete~~  
 auth  
-i18n  
+i18n in templete 
 csrf  
 validation i18n  
 logging  
