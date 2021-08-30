@@ -23,11 +23,7 @@ for lang in language_list:
         languages[lang_code] = json.load(file)
 
 
-def tran(value, lang='en'):
-    return languages[lang][value]
 
-
-templates.env.filters["tran"] = tran
 # for pydantic
 # loader = JsonLoader(LANG_FILE_PATH)
 # tr = PydanticI18n(loader)
