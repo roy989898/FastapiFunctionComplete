@@ -11,9 +11,14 @@ email
 # Finish Part
 
 ### templete
-`from global_var import templates
+
+```python
+from global_var import templates
+
+
 @app.get("/")
 async def root(request: Request):
     result = {}
     result.update({"request": request})
-    return templates.TemplateResponse("index.html", result)`
+    return templates.TemplateResponse("index.html", result)
+```
