@@ -1,0 +1,11 @@
+{% macro error_sen(key) %}
+    {% if form_error and form_error.result_errors[key] %}
+        {% for error in  form_error.result_errors[key] %}
+            <div
+                    class="form-text text-danger">{{ error }}
+            </div>
+        {% endfor %}
+
+
+    {% endif %}
+{% endmacro %}

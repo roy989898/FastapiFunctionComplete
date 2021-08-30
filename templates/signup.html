@@ -1,0 +1,39 @@
+{% extends "layout/layout.html" %}
+{% from "layout/macro.html" import error_sen with  context %}
+{% block content %}
+    <h1>Signup</h1>
+    <div class="container">
+        <form method="post" action="{{ task_signup_post }}">
+            <input hidden class="form-control" name='csrf_token' value="{{ csrf_token }}">
+            <div class="mb-3">
+                <label for="email" class="form-label">Email address</label>
+                <input class="form-control" id="email" aria-describedby="emailHelp" name="email">
+                {{ error_sen('email') }}
+            </div>
+               <div class="mb-3">
+                <label for="username" class="form-label">username</label>
+                <input class="form-control" id="username"  name="username">
+                {{ error_sen('username') }}
+            </div>
+               <div class="mb-3">
+                <label for="full_name" class="form-label">Full Name</label>
+                <input class="form-control" id="full_name"  name="full_name">
+                {{ error_sen('full_name') }}
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password">
+                {{ error_sen('password') }}
+            </div>
+            <div class="mb-3">
+                <label for="password2" class="form-label">Confirm password</label>
+                <input type="password" class="form-control" id="password2" name="password2">
+                {{ error_sen('password2') }}
+            </div>
+
+            <button type="submit" class="btn btn-primary">SignUp</button>
+        </form>
+    </div>
+
+
+{% endblock %}

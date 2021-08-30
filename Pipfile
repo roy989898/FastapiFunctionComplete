@@ -8,6 +8,7 @@ fastapi = {extras = ["all"], version = "*"}
 sqlalchemy = "*"
 jinja2 = "*"
 aiofiles = "*"
+pydantic-i18n = "*"
 
 [dev-packages]
 
