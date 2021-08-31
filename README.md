@@ -4,9 +4,9 @@
 ~~auth~~  
 ~~mulit router file~~  
 ~~i18n in templete~~
-csrf  
-validation i18n  
-Erro handle  
+~~csrf~~  
+~~validation i18n~~  
+Error handle  
 logging  
 email
 
@@ -55,4 +55,41 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
 @app.get("/users/me/", response_model=schemas.User)
 async def read_users_me(current_user: models.User = Depends(get_current_active_user)):
     return current_user
+```
+
+### csrf  
+```python
+@router.get('/signup', name='task_signup')
+def signup(request: Request, csrf_protect: CsrfProtect = Depends()):
+    csrf_token = csrf_protect.generate_csrf()
+    # result = get_link_variable(request)
+    result = {}
+    result.update({'csrf_token': csrf_token})
+    return templates.TemplateResponse("signup.html", result)
+
+@router.post('/signup', name='task_signup_post')
+async def signup(csrf_token: str = Form(None), csrf_protect: CsrfProtect = Depends(), db: Session = Depends(get_db)
+):
+    csrf_protect.validate_csrf(csrf_token)
+```
+### validation i18n  
+
+```python
+
+    errors: List[Dict[str, Any]] = []
+    try:
+        schemas.SignupForm(
+            username=username,
+            full_name=full_name,
+            isEmailUnique=is_email_unique,
+            email=email,
+            password=password,
+            password2=password2)
+    except ValidationError as e:
+        #  tc ,use what to determine the lang???
+        errors = tr.translate(e.errors(), locale="tc")
+    
+    form_error = get_errors_msgs(errors)
+        
+
 ```

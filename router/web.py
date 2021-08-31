@@ -40,9 +40,7 @@ def signup(request: Request, csrf_protect: CsrfProtect = Depends()):
 
 @router.post('/signup',
              # responses={404: {'model': task_system_schemas.FormError}}
-             name='task_signup_post'
-
-             )
+             name='task_signup_post')
 async def signup(
         response: Response, request: Request,
         email: str = Form(None),
