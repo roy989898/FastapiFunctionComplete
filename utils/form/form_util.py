@@ -2,7 +2,6 @@ from typing import List, Dict, Any
 
 from pydantic import BaseModel
 
-import task_system_schemas
 from global_var import templates
 
 
@@ -23,9 +22,3 @@ def get_errors_msgs(errors: List[Dict[str, Any]]):
     return FormError(result_errors=result_errors)
 
 
-# TODO add filter to handle the form error
-def form_errors(value, lang='en'):
-    pass
-
-
-templates.env.filters["form_errors"] = form_errors

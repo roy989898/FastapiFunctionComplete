@@ -57,6 +57,20 @@ def create_user(db: Session, user: schemas.UserCreate):
     return db_user
 
 
+def create_user_form(db: Session, email: str,
+                username: str, password: str,
+                full_name: str):
+    user = models.User(username=username,
+                       full_name=full_name,
+                       email=email,
+                       hashed_password=get_password_hash(password)
+                       )
+    db.add(user)
+    db.commit()
+    db.refresh(user)
+    return user
+
+
 def get_user(db: Session, email: str):
     return db.query(models.User).filter(models.User.email == email).first()
 
