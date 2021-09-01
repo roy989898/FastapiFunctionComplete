@@ -6,7 +6,8 @@
 ~~i18n in templete~~
 ~~csrf~~  
 ~~validation i18n~~  
-Error handle  
+~~Error handle~~  
+validation error handle
 ~~logging~~  
 email
 
@@ -101,7 +102,8 @@ form_error = get_errors_msgs(errors)
 
 https://github.com/Delgan/loguru#x-faster-than-built-in-logging
 
-log leverl DEBUG < INFO < WARNING < ERROR / EXCEPTION < CRITICAL setup
+log level DEBUG < INFO < WARNING < ERROR / EXCEPTION < CRITICAL   
+setup
 
 ```python
 log_set_up.setup()
@@ -183,3 +185,5 @@ async def catch_exceptions_middleware(request: Request, call_next):
         return Response("Internal server error", status_code=500)
 
 ```
+
+### validation error handle
