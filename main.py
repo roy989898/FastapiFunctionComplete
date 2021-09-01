@@ -2,8 +2,9 @@ import uvicorn
 from fastapi import FastAPI
 from loguru import logger
 from starlette.requests import Request
-from starlette.responses import Response
+from starlette.responses import Response, PlainTextResponse
 
+from exception.Exception import MyException
 from global_var import templates
 from router import web, auth
 from utils.db.database import Base, engine
@@ -35,6 +36,11 @@ async def catch_exceptions_middleware(request: Request, call_next):
 app.middleware('http')(catch_exceptions_middleware)
 app.include_router(web.router, tags=['web'])
 app.include_router(auth.router, tags=['auth'])
+
+# @app.exception_handler(MyException)
+# async def http_exception_handler(request, exc):
+#     return PlainTextResponse(str('My exception'), status_code=404)
+
 
 if __name__ == "__main__":
     logger.debug('App start')

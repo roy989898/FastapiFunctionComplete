@@ -9,6 +9,7 @@ from sqlalchemy.orm import Session
 
 import models
 import schemas
+from exception.Exception import MyException
 from fastapi_csrf_protect import CsrfProtect
 
 from global_var import templates
@@ -30,6 +31,7 @@ async def root(request: Request):
 
 @router.get('/signup', name='task_signup')
 def signup(request: Request, csrf_protect: CsrfProtect = Depends()):
+    # raise MyException(name='www')
     csrf_token = csrf_protect.generate_csrf()
     # result = get_link_variable(request)
     result = {}

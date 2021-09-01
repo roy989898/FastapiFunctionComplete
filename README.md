@@ -158,3 +158,28 @@ Traceback (most recent call last):
 
 ZeroDivisionError: division by zero
 ```
+
+### Error handle
+
+```python
+# catch
+@app.exception_handler(MyException)
+async def http_exception_handler(request, exc):
+    return PlainTextResponse(str('My exception'), status_code=404)
+
+
+# raise Errro
+raise MyException(name='www')
+
+
+# not catch error
+# in main
+async def catch_exceptions_middleware(request: Request, call_next):
+    try:
+        return await call_next(request)
+    except Exception:
+        # you probably want some kind of logging here
+        logger.exception("Global")
+        return Response("Internal server error", status_code=500)
+
+```
