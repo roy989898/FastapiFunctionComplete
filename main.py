@@ -1,3 +1,5 @@
+import json
+
 import uvicorn
 from fastapi import FastAPI
 from fastapi.exceptions import RequestValidationError
@@ -47,7 +49,7 @@ app.include_router(auth.router, tags=['auth'])
 @app.exception_handler(RequestValidationError)
 async def validation_exception_handler(request, exc: RequestValidationError):
     errorMsgs = form_util.get_errors_msgs(exc.errors())
-    return JSONResponse(errorMsgs.result_errors, status_code=422)
+    return JSONResponse(errorMsgs.__dict__, status_code=422)
 
 
 if __name__ == "__main__":
