@@ -187,3 +187,11 @@ async def catch_exceptions_middleware(request: Request, call_next):
 ```
 
 ### validation error handle
+
+```python
+# handle at here
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(request, exc: RequestValidationError):
+    errorMsgs = form_util.get_errors_msgs(exc.errors())
+    return JSONResponse(errorMsgs.result_errors, status_code=422)
+```

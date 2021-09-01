@@ -1,13 +1,15 @@
 import uvicorn
 from fastapi import FastAPI
+from fastapi.exceptions import RequestValidationError
 from loguru import logger
 from starlette.requests import Request
-from starlette.responses import Response, PlainTextResponse
+from starlette.responses import Response, PlainTextResponse, JSONResponse
 
 from exception.Exception import MyException
 from global_var import templates
 from router import web, auth
 from utils.db.database import Base, engine
+from utils.form import form_util
 from utils.i18n.language import languages
 from utils.log import log_set_up
 
@@ -37,9 +39,15 @@ app.middleware('http')(catch_exceptions_middleware)
 app.include_router(web.router, tags=['web'])
 app.include_router(auth.router, tags=['auth'])
 
+
 # @app.exception_handler(MyException)
 # async def http_exception_handler(request, exc):
 #     return PlainTextResponse(str('My exception'), status_code=404)
+
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(request, exc: RequestValidationError):
+    errorMsgs = form_util.get_errors_msgs(exc.errors())
+    return JSONResponse(errorMsgs.result_errors, status_code=422)
 
 
 if __name__ == "__main__":
