@@ -1,6 +1,7 @@
 from typing import List, Dict, Any
 
 from fastapi import APIRouter, Depends, Form
+from loguru import logger
 from pydantic import ValidationError
 from starlette.requests import Request
 from starlette.responses import JSONResponse, Response
