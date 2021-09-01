@@ -202,3 +202,9 @@ register the Error Response for one api
 @router.post("/users/", response_model=schemas.User,
              responses={"422": {'description': 'Validation Error', 'model': FormError}})
 ```
+
+register the Error Response for apis below Router
+
+```python
+router = APIRouter(responses={"422": {'description': 'Validation Error', 'model': FormError}})
+```
