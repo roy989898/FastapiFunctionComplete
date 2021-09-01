@@ -1,6 +1,8 @@
 import uvicorn
 from fastapi import FastAPI
 from loguru import logger
+from starlette.requests import Request
+from starlette.responses import Response
 
 from global_var import templates
 from router import web, auth
@@ -20,6 +22,17 @@ def tran(value, lang='en'):
 
 templates.env.filters["tran"] = tran
 
+
+async def catch_exceptions_middleware(request: Request, call_next):
+    try:
+        return await call_next(request)
+    except Exception:
+        # you probably want some kind of logging here
+        logger.exception("Global")
+        return Response("Internal server error", status_code=500)
+
+
+app.middleware('http')(catch_exceptions_middleware)
 app.include_router(web.router, tags=['web'])
 app.include_router(auth.router, tags=['auth'])
 
