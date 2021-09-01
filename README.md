@@ -195,3 +195,10 @@ async def validation_exception_handler(request, exc: RequestValidationError):
     errorMsgs = form_util.get_errors_msgs(exc.errors())
     return JSONResponse(errorMsgs.result_errors, status_code=422)
 ```
+
+register the Error Response for one api
+
+```python
+@router.post("/users/", response_model=schemas.User,
+             responses={"422": {'description': 'Validation Error', 'model': FormError}})
+```

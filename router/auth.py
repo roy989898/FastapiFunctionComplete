@@ -12,6 +12,7 @@ from utils.auth import auth
 from utils.auth.auth import authenticate_user, ACCESS_TOKEN_EXPIRE_MINUTES, create_access_token, \
     get_current_active_user
 from utils.db.database import get_db
+from utils.form.form_util import FormError
 
 router = APIRouter()
 
@@ -42,7 +43,8 @@ async def read_own_items(current_user: models.User = Depends(get_current_active_
     return [{"item_id": "Foo", "owner": current_user.username}]
 
 
-@router.post("/users/", response_model=schemas.User)
+@router.post("/users/", response_model=schemas.User,
+             responses={"422": {'description': 'Validation Error', 'model': FormError}})
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     db_user = auth.get_user_by_email(db, email=user.email)
     if db_user:
