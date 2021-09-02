@@ -209,3 +209,7 @@ register the Error Response for apis below Router
 ```python
 router = APIRouter(responses={"422": {'description': 'Validation Error', 'model': FormError}})
 ```
+
+### ENV
+[https://fastapi.tiangolo.com/advanced/settings/
+](https://fastapi.tiangolo.com/advanced/settings/)
